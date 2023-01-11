@@ -1,12 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
-// import ArticlesView from '@/views/ArticlesView.vue';
-// import DeliveriesView from '@/views/DeliveriesView.vue';
-// import MenusView from '@/views/MenusView.vue';
-// import NotificationCenterView from '@/views/NotificationCenterView.vue';
-// import OrderHistoryView from '@/views/OrderHistoryView.vue';
-// import OrdersView from '@/views/OrdersView.vue';
-// import StatisticsView from '@/views/StatisticsView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -53,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/statistics',
     name: 'statistics',
     component: () => import('@/views/StatisticsView.vue')
+  },
+  {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/components/Form.vue')
   },
 ]
 

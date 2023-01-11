@@ -1,5 +1,8 @@
 <template>
-
+    <ul>
+        <li>Profile</li>
+        <li>Logout</li>
+    </ul>
 </template>
 
 <script lang="ts">

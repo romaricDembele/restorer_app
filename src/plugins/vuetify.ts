@@ -5,7 +5,7 @@ import * as directives from 'vuetify/directives'
 
 // icons
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg';
-import { mdiAccount, mdiHomeCity, mdiAccountGroupOutline, mdiMoped, mdiHistory, mdiChartBar, mdiFoodForkDrink, mdiFoodTurkey, mdiOrderBoolAscendingVariant, mdiBellRing } from '@mdi/js'; // import the additional icons here.
+import { mdiAccount, mdiHomeCity, mdiAccountGroupOutline, mdiMoped, mdiHistory, mdiChartBar, mdiFoodForkDrink, mdiFoodTurkey, mdiOrderBoolAscendingVariant, mdiBellRing, mdiChevronLeft, mdiPlus } from '@mdi/js'; // import the additional icons here.
 
 const vuetify = createVuetify({
     components,
@@ -24,6 +24,8 @@ const vuetify = createVuetify({
             ordersHistory: mdiHistory,
             statistics: mdiChartBar,
             notifications: mdiBellRing,
+            chevronLeft: mdiChevronLeft,
+            add: mdiPlus,
         },
         sets: {
           mdi,

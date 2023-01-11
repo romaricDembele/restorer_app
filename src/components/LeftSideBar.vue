@@ -13,7 +13,7 @@
         <template v-slot:append>
             <v-btn
             variant="text"
-            icon="mdi-chevron-left"
+            icon="$chevronLeft"
             @click.stop="rail = !rail"
             ></v-btn>
         </template>
@@ -51,11 +51,11 @@
                 <v-list-item prepend-icon="$ordersHistory" title="Orders History" value="ordersHistory"></v-list-item>
             </RouterLink>
 
-            <RouterLink to='statistics' style="text-decoration: none; color: inherit;">
+            <RouterLink to='/statistics' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$statistics" title="Statistics" value="statistics"></v-list-item>
             </RouterLink>
 
-            <RouterLink to='notification-center' style="text-decoration: none; color: inherit;">
+            <RouterLink to='/notification-center' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$notifications" title="Notifications" value="notifications"></v-list-item>
             </RouterLink>
         
@@ -78,6 +78,15 @@ export default defineComponent({
     //     { title: 'Users', icon: 'mdi-account-group-outline' },
     //   ],
       rail: true,
+      elements: [
+        { id: 1, name: 'Articles', actions: [ 'Dishes', 'Side Dishes', 'Drinks', 'Sauce' ] },
+        { id: 2, name: 'Menus', actions: [ 'action1', 'action2' ] },
+        { id: 3, name: 'Orders', actions: [ 'Dishes', 'Side Dishes', 'Drinks', 'Sauce' ] },
+        { id: 4, name: 'Deliveries', actions: [ 'action1', 'action2' ] },
+        { id: 5, name: 'Orders History', actions: [ 'Dishes', 'Side Dishes', 'Drinks', 'Sauce' ] },
+        { id: 6, name: 'Statistics', actions: [ 'action1', 'action2' ] },
+        { id: 7, name: 'Notifications', actions: [ 'Dishes', 'Side Dishes', 'Drinks', 'Sauce' ] },
+      ],
     }
   },
 });

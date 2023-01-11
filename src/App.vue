@@ -5,14 +5,13 @@
       <NavBar></NavBar>
     </v-app-bar>
 
-    <SideBar></SideBar>
+    <LeftSideBar></LeftSideBar>
 
     <v-main>
       <router-view/>
     </v-main>
 
-    <v-navigation-drawer location="right" width="150" color="grey-lighten-1" permanent>
-    </v-navigation-drawer>
+    <RightSideBar ></RightSideBar>
 
     <v-footer app></v-footer>
   </v-app>
@@ -22,12 +21,19 @@
 <script setup lang="ts">
   import { defineComponent } from 'vue';
   import NavBar from '@/components/NavBar.vue';
-  import SideBar from '@/components/SideBar.vue'
+  import LeftSideBar from '@/components/LeftSideBar.vue';
+  import RightSideBar from '@/components/RightSideBar.vue'
 
   defineComponent({
+    data(){
+      return {
+        displayValue: "none"
+      }
+    },
     components: {
       NavBar,
-      SideBar,
+      LeftSideBar,
+      RightSideBar
     }
   });
 
