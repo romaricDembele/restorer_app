@@ -1,13 +1,27 @@
-// Helpers - axios 
+// This is the helpers file to interact with the restorer back end.
 
+const API_RESTORER = 'api/restorer';
 
 const axios = require('axios').default;
+
+interface Article {
+    name: string,
+    type: string,
+    quantity: number,
+    price: number
+}
+
+interface Menu {
+    name: string,
+    articles: Article[],
+    price: number
+}
 
 
 // Get articles
 const getArticles = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/articles');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -17,7 +31,7 @@ const getArticles = async () => {
 // Get dishes
 const getDishes = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/articles/dishes');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/dishes`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -27,7 +41,7 @@ const getDishes = async () => {
 // Get side dishes
 const getSideDishes = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/articles/side-dishes');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/side-dishes`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -37,7 +51,7 @@ const getSideDishes = async () => {
 // Get drinks
 const getDrinks = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/articles/drinks');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/drinks`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -47,7 +61,7 @@ const getDrinks = async () => {
 // Get sauce
 const getSauces = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/articles/sauces');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/sauces`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -57,7 +71,7 @@ const getSauces = async () => {
 // Get menus
 const getMenus = async () => {
     try {
-        const response = await axios.get('https://localhost:3455/restorer/menus');
+        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/menus`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -69,7 +83,7 @@ const postArticle = async (name: string, type: string, quantity: number, price: 
     console.log(price);
     axios({
         method: 'post',
-        url: 'https://localhost:3455/restorer/menus',
+        url: `https://localhost:3455/${API_RESTORER}/menus`,
         data: {
           name,
           type,
@@ -84,23 +98,10 @@ const postArticle = async (name: string, type: string, quantity: number, price: 
 };
 
 // Post menu
-interface Article {
-    name: string,
-    type: string,
-    quantity: number,
-    price: number
-}
-
-interface Menu {
-    name: string,
-    articles: Article[],
-    price: number
-}
-
 const postMenu = async (name: string, articles: Article[], price: number) => {
     axios({
         method: 'post',
-        url: 'https://localhost:3455/restorer/menus',
+        url: `https://localhost:3455/${API_RESTORER}/menus`,
         data: {
           name,
           articles,
@@ -129,7 +130,7 @@ export default {
     getMenus,
     postArticle,
     postMenu
-}
+};
 
 
 
@@ -138,7 +139,7 @@ export default {
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////////
 // Exemple d'Envoi d’une requête POST.
 axios({
     method: 'post',
