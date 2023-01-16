@@ -14,30 +14,32 @@
             ></v-img>
         
             <v-card-title>
-                {{ product.product_name }}
+                {{ product.name }}
             </v-card-title>
         
             <v-card-subtitle>
-                Quantity: {{ product.product_quantity }}
+                Quantity: {{ product.quantity }}
             </v-card-subtitle>
 
             <v-card-subtitle>
-                Prix: {{ product.product_price }}
+                Price: {{ product.price }}
             </v-card-subtitle>
         
-            <v-card-actions>
-                <v-btn
-                color="red"
-                variant="text"
+            <v-card-actions class="d-flex justify-end">
+                <v-icon
+                    class="mr-2"
+                    color="red"
+                    icon="$delete"
+                    @click="deleteProduct(product._id)"
                 >
-                    +
-                </v-btn>
-                <v-btn
-                color="blue"
-                variant="text"
+                </v-icon>
+                <v-icon
+                    color="blue"
+                    icon="$update"
+                    @click="updateProduct(product._id)"
                 >
-                    -
-                </v-btn>
+                </v-icon>
+                <Form mode="update"></Form>
             </v-card-actions>
         </v-card>
     </v-hover>
@@ -47,15 +49,14 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
     import type { PropType } from 'vue';
-    interface Product {
-        product_id: string,
-        product_name: string,
-        image_url: string,
-        product_quantity: string,
-        product_price: string,
-    }
-    // to use useStore we need to the setup() method.
-    // import { useStore } from 'vuex-composition-helpers'
+    import {Product} from '@/utils/interfaces';
+
+    import {deleteArticle} from '@/utils/helpers';
+
+    import store from '@/store';
+    import Form from '@/components/Form.vue';
+
+ 
     export default defineComponent({
         name: 'Product',
         props: {
@@ -63,7 +64,7 @@
                 type: Object as PropType<Product>,
                 default: function(){
                     return {
-                        product_name: "",
+                        name: "",
                         image_url: '',
                         product_quantity: "00",
                         product_price: "00",
@@ -76,8 +77,14 @@
             }
         },
         methods: {
-            addToCart (article: any){
+            async deleteProduct(id: any){
+                store.dispatch('deleteProduct', id)
+            },
+            async updateProduct(id: any){
+
             }
+        },
+        components: {
         }
     })
 </script>

@@ -1,27 +1,22 @@
 // This is the helpers file to interact with the restorer back end.
 
-const API_RESTORER = 'api/restorer';
+const API_RESTORER = 'http://localhost:3000/api/restorer';
 
 const axios = require('axios').default;
 
-interface Article {
-    name: string,
-    type: string,
-    quantity: number,
-    price: number
-}
 
-interface Menu {
-    name: string,
-    articles: Article[],
-    price: number
-}
-
+import {Article, Menu} from '@/utils/interfaces';
 
 // Get articles
-const getArticles = async () => {
+export const getArticles = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles`);
+        // const response = await axios.get(`${API_RESTORER}/articles`);
+        // return response.data;
+
+        const response = await axios({
+            method: 'get',
+            url: `${API_RESTORER}/articles`,
+        });
         return response.data;
       } catch (error) {
         console.error(error);
@@ -31,7 +26,7 @@ const getArticles = async () => {
 // Get dishes
 const getDishes = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/dishes`);
+        const response = await axios.get(`${API_RESTORER}/articles/dishes`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -41,7 +36,7 @@ const getDishes = async () => {
 // Get side dishes
 const getSideDishes = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/side-dishes`);
+        const response = await axios.get(`${API_RESTORER}/articles/side-dishes`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -51,7 +46,7 @@ const getSideDishes = async () => {
 // Get drinks
 const getDrinks = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/drinks`);
+        const response = await axios.get(`${API_RESTORER}/articles/drinks`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -61,7 +56,7 @@ const getDrinks = async () => {
 // Get sauce
 const getSauces = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/articles/sauces`);
+        const response = await axios.get(`${API_RESTORER}/articles/sauces`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -71,7 +66,7 @@ const getSauces = async () => {
 // Get menus
 const getMenus = async () => {
     try {
-        const response = await axios.get(`https://localhost:3455/${API_RESTORER}/menus`);
+        const response = await axios.get(`${API_RESTORER}/menus`);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -79,29 +74,33 @@ const getMenus = async () => {
 };
 
 // Post article
-const postArticle = async (name: string, type: string, quantity: number, price: number) => {
-    console.log(price);
-    axios({
-        method: 'post',
-        url: `https://localhost:3455/${API_RESTORER}/menus`,
-        data: {
-          name,
-          type,
-          quantity,
-          price
-        }
-    })
-    .then( (response: any) => response.status)
-    .catch((error: any) => {
+export const postArticle = async (article: Article) => {
+    console.log(article.price);
+
+    try {
+        const response = await axios({
+            method: 'post',
+            url: `${API_RESTORER}/articles`,
+            data: {
+              name: article.name,
+              type: article.type,
+              quantity: article.quantity,
+              price: article.price
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
         console.log(error);
-    });
+    }
+
 };
 
 // Post menu
 const postMenu = async (name: string, articles: Article[], price: number) => {
     axios({
         method: 'post',
-        url: `https://localhost:3455/${API_RESTORER}/menus`,
+        url: `${API_RESTORER}/menus`,
         data: {
           name,
           articles,
@@ -117,20 +116,34 @@ const postMenu = async (name: string, articles: Article[], price: number) => {
 // Update menu
 
 // Delete article
+export const deleteArticle = async (id: any) => {
+
+    try {
+        const response = await axios({
+            method: 'delete',
+            url: `${API_RESTORER}/articles/${id}`,
+        });
+        console.log(response.status);
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
 // Delete menu
 
 // The other microservices calls
 
-export default {
-    getArticles,
-    getDishes,
-    getSideDishes,
-    getDrinks,
-    getSauces,
-    getMenus,
-    postArticle,
-    postMenu
-};
+// export const helpers = {
+//     getArticles,
+//     getDishes,
+//     getSideDishes,
+//     getDrinks,
+//     getSauces,
+//     getMenus,
+//     postArticle,
+//     postMenu
+// };
 
 
 

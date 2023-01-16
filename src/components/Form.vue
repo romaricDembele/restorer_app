@@ -1,6 +1,6 @@
 <template>
 
-<v-row justify="center">
+<v-row justify="left">
       <v-dialog
         v-model="dialog"
         persistent
@@ -12,7 +12,14 @@
           >
             ADD ARTICLE
           </v-btn> -->
-          <AddButton v-bind="props"></AddButton>
+          <AddButton v-if="mode === 'add'" v-bind="props"></AddButton>
+          <!-- <v-icon
+            v-if="mode === 'update'"
+            color="blue"
+            icon="$update"
+            
+          >
+          </v-icon> -->
         </template>
 
         <v-card>
@@ -43,6 +50,7 @@
                   <v-text-field
                     label="Type*"
                     required
+                    v-model="type"
                   ></v-text-field>
                 </v-col>
               </v-row>                
@@ -52,6 +60,7 @@
                   <v-text-field
                     label="Quantity*"
                     required
+                    v-model="quantity"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -61,6 +70,7 @@
                   <v-text-field
                     label="Price*"
                     required
+                    v-model="price"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -98,7 +108,8 @@
     import { defineComponent } from 'vue';
     import AddButton from '@/components/AddButton.vue'
 
-    import helpers from '@/utils';
+    // import {postArticle} from '@/utils/helpers';
+    import store from '@/store'
 
     export default defineComponent({
       data(){
@@ -110,6 +121,9 @@
             price: 0
         }
       },
+      props: {
+        mode: {type: String, default: 'add'}
+      },
       components: {
         AddButton
       },
@@ -117,7 +131,11 @@
         async onSave (){
           this.dialog = false;
           console.log(this.name);
-          const response_status= await helpers.postArticle(this.name, this.type, this.quantity, this.price );
+          store.dispatch('createProduct', {
+            name: this.name, 
+            type: this.type, 
+            quantity: this.quantity, 
+            price: this.price});
         },
         onClose(){
           this.dialog = false

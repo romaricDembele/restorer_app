@@ -1,12 +1,9 @@
 <template>
     <div @click="logHello" class="pl-6 pt-9 ">
-        <!-- <AddButton @click="showForm = true" buttonText="Add Article"></AddButton> -->
-        <!-- <CustomForm :showForm="showForm" @submit="onSubmit" :name="name"  @close="showForm = false"></CustomForm> -->
-        <!-- <CustomForm @submit="onSubmit" v-model="name" :quantity="quantity" :price="price" v-if="showForm" @close="showForm = false"></CustomForm> -->
         <Form ></Form>
     </div>
     
-    <Products></Products>
+    <Products :products="products"></Products>
 
 </template>
 
@@ -19,6 +16,9 @@ import Form from '@/components/Form.vue';
 
 import Products from '@/components/Products.vue';
 
+import { getArticles } from '@/utils/helpers';
+
+import store from '@/store';
 
 
 interface FormData {
@@ -34,7 +34,7 @@ export default defineComponent({
             showForm: false,
             name: '',
             quantity: 0,
-            price: 0
+            price: 0,
         }
     },
     methods: {
@@ -43,7 +43,15 @@ export default defineComponent({
         },
         onSubmit(data: FormData){
             console.log(data)
-        }
+        },
+    },
+    computed: {
+        products(){
+            return store.state.products
+        },
+    },
+    mounted(){
+        store.dispatch('fetchProducts')
     },
     components: {
         Products,
