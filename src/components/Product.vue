@@ -30,7 +30,7 @@
                     class="mr-2"
                     color="red"
                     icon="$delete"
-                    @click="deleteProduct(product._id)"
+                    @click="deleteFn(product._id)"
                 >
                 </v-icon>
                 <v-icon
@@ -71,9 +71,9 @@
                     }
                 }
             },
-        },
-        data(){
-            return {
+            productType: {
+                type: String,
+                required: true
             }
         },
         methods: {
@@ -82,9 +82,26 @@
             },
             async updateProduct(id: any){
 
-            }
+            },
+            async deleteMenu(id: any){
+                store.dispatch('deleteMenu', id)
+            },
+            async deleteFn(id: any) {
+                switch (this.productType){
+                    case 'article':
+                        await this.deleteProduct(id);
+                    case 'menu':
+                        await this.deleteMenu(id);
+                    default:
+                        return ()=>console.log('The product type is not defined')
+                }
+            },
         },
-        components: {
-        }
+        computed: {
+            // deleteFn(id: any) {
+            //     return this.productType === 'article' ? this.deleteProduct(id) : this.deleteMenu(id);
+            // },
+
+        },
     })
 </script>

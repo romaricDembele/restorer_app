@@ -11,7 +11,7 @@
       <router-view/>
     </v-main>
 
-    <RightSideBar ></RightSideBar>
+    <!-- <RightSideBar ></RightSideBar> -->
 
     <v-footer app></v-footer>
   </v-app>

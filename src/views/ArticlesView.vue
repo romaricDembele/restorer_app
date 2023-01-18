@@ -3,7 +3,7 @@
         <Form ></Form>
     </div>
     
-    <Products :products="products"></Products>
+    <Products product-type="article" :products="products"></Products>
 
 </template>
 

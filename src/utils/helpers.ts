@@ -5,14 +5,12 @@ const API_RESTORER = 'http://localhost:3000/api/restorer';
 const axios = require('axios').default;
 
 
-import {Article, Menu} from '@/utils/interfaces';
+import {Article, Menu, Restaurant, Order} from '@/utils/interfaces';
 
+/* ------------------------------------- ARTICLES --------------------------------*/
 // Get articles
 export const getArticles = async () => {
     try {
-        // const response = await axios.get(`${API_RESTORER}/articles`);
-        // return response.data;
-
         const response = await axios({
             method: 'get',
             url: `${API_RESTORER}/articles`,
@@ -63,15 +61,7 @@ const getSauces = async () => {
     }
 };
 
-// Get menus
-const getMenus = async () => {
-    try {
-        const response = await axios.get(`${API_RESTORER}/menus`);
-        return response.data;
-      } catch (error) {
-        console.error(error);
-    }
-};
+
 
 // Post article
 export const postArticle = async (article: Article) => {
@@ -96,6 +86,37 @@ export const postArticle = async (article: Article) => {
 
 };
 
+// Delete article
+export const deleteArticle = async (id: any) => {
+
+    try {
+        const response = await axios({
+            method: 'delete',
+            url: `${API_RESTORER}/articles/${id}`,
+        });
+        console.log(response.status);
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+// Update article
+
+/* ------------------------------------- MENUS --------------------------------*/
+// Get menus
+export const getMenus = async () => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${API_RESTORER}/menus`,
+        });
+        return response.data;
+      } catch (error) {
+        console.error(error);
+    }
+};
+
 // Post menu
 const postMenu = async (name: string, articles: Article[], price: number) => {
     axios({
@@ -112,16 +133,14 @@ const postMenu = async (name: string, articles: Article[], price: number) => {
     });
 };
 
-// Update article
 // Update menu
-
-// Delete article
-export const deleteArticle = async (id: any) => {
+// Delete menu
+export const deleteMenu = async (id: any) => {
 
     try {
         const response = await axios({
             method: 'delete',
-            url: `${API_RESTORER}/articles/${id}`,
+            url: `${API_RESTORER}/menus/${id}`,
         });
         console.log(response.status);
     } catch (error) {
@@ -130,21 +149,67 @@ export const deleteArticle = async (id: any) => {
 
 };
 
-// Delete menu
+/* ------------------------------------- ORDERS --------------------------------*/
+export const getOrders = async () => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${API_RESTORER}/orders`,
+        });
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+    }
+};
 
-// The other microservices calls
+export const deleteOrder = async (id: string) => {
+        try {
+            const response = await axios({
+                method: 'delete',
+                url: `${API_RESTORER}/orders/${id}`,
+            });
+            console.log(response.status);
+        } catch (error) {
+            console.log(error);
+        }
+};
 
-// export const helpers = {
-//     getArticles,
-//     getDishes,
-//     getSideDishes,
-//     getDrinks,
-//     getSauces,
-//     getMenus,
-//     postArticle,
-//     postMenu
-// };
 
+export const validateOrder = async (id: string) => {
+    console.log(id);
+
+    try {
+        const response = await axios({
+            method: 'put',
+            url: `${API_RESTORER}/orders/${id}/status`,
+            data: { status: "Validé" }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+export const refuseOrder = async (id: string) => {
+    console.log(id);
+
+    try {
+        const response = await axios({
+            method: 'put',
+            url: `${API_RESTORER}/orders/${id}/status`,
+            data: { status: "Rejeté" }
+
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+
+};
 
 
 
@@ -153,26 +218,7 @@ export const deleteArticle = async (id: any) => {
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-// Exemple d'Envoi d’une requête POST.
-axios({
-    method: 'post',
-    url: '/user/12345',
-    data: {
-      firstName: 'Fred',
-      lastName: 'Pierrafeu'
-    }
-});
 
-// Exemple d'envoi d'une requête GET.
-axios.get('/user/12345')
-  .then(function (response: any) {
-    console.log(response.data);
-    console.log(response.status);
-    console.log(response.statusText);
-    console.log(response.headers);
-    console.log(response.config);
-  }
-);
 
 const response_schema = {
     // `data` est le contenu de la réponse renvoyée par le serveur.

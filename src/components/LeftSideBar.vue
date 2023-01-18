@@ -43,17 +43,17 @@
                 <v-list-item prepend-icon="$orders" title="Orders" value="orders"></v-list-item>
             </RouterLink>
 
-            <RouterLink to='/deliveries' style="text-decoration: none; color: inherit;">
+            <!-- <RouterLink to='/deliveries' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$deliveries" title="Deliveries" value="deliveries"></v-list-item>
             </RouterLink>
 
             <RouterLink to='/order-history' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$ordersHistory" title="Orders History" value="ordersHistory"></v-list-item>
-            </RouterLink>
+            </RouterLink> -->
 
             <RouterLink to='/statistics' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$statistics" title="Statistics" value="statistics"></v-list-item>
-            </RouterLink>
+            </RouterLink> 
 
             <RouterLink to='/notification-center' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$notifications" title="Notifications" value="notifications"></v-list-item>

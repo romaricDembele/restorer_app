@@ -1,49 +1,29 @@
-// import { createStore } from 'vuex'
-
-// export default createStore({
-//   state: {
-//     selectedElement: null,
-//     actions: [],
-//   },
-//   getters: {
-//   },
-//   mutations: {
-//     setSelectedElement(state, element) {
-//       state.selectedElement = element;
-//     },
-//     setActions(state, actions) {
-//       state.actions = actions;
-//     },
-//   },
-//   actions: {
-//   },
-//   modules: {
-//   }
-// })
-
-// store.ts
 import { createStore } from 'vuex';
-import {Product, Article} from '@/utils/interfaces';
+import {Product, Article, Order} from '@/utils/interfaces';
 
-import { getArticles, postArticle } from '@/utils/helpers';
+import { 
+  getArticles, getOrders, postArticle, getMenus,
+  deleteOrder, deleteMenu, 
+  validateOrder, refuseOrder 
+} from '@/utils/helpers';
+
 import { deleteArticle as deleteProduct } from '@/utils/helpers';
-// interface Product {
-//   _id: string;
-//   name: string;
-//   price: number;
-//   quantity: number;
-//   image_url: string;
-// }
+
 
 interface State {
   products: Product[];
+  orders: Order[];
+  menus: Product[]
 }
 
 const state: State = {
   products: [],
+  orders: [],
+  menus: []
 };
 
 const mutations = {
+  /* ------------------ Articles ------------- */
   setProducts(state: State, products: Product[]) {
     state.products = products;
   },
@@ -59,28 +39,90 @@ const mutations = {
       state.products.splice(index, 1, product);
     }
   },
+
+  /* ------------------ Menus --------------- */
+  setMenus(state: State, menus: Product[]) {
+    state.menus = menus;
+  },
+
+  deleteMenu(state: State, id: string) {
+    state.menus = state.menus.filter((product) => product._id !== id);
+  },
+
+  /* ------------------ Orders --------------- */
+  setOrders(state: State, orders: Order[]) {
+    state.orders = orders;
+  },
+  deleteOrder(state: State, id: string) {
+    state.orders = state.orders.filter((order) => order._id !== id);
+  },
+  updateOrder(state: State, order: Order) {
+    const index = state.orders.findIndex((p) => p._id === order._id);
+    if (index !== -1) {
+      state.orders.splice(index, 1, order);
+    }
+  },
 };
 
 const actions = {
+  /* ------------------ Articles -------------- */
   async fetchProducts({ commit }: any) {
     const articles = await getArticles();
     commit('setProducts', articles);
     console.log(articles);
   },
+
   async createProduct({ commit }: any, product: Article) {
     console.log(product.price);
     const response = await postArticle(product);
     console.log(response);
     commit('addProduct', response);
   },
+
   async deleteProduct({ commit }: any, id: any) {
     await deleteProduct(id);
     commit('deleteProduct', id);
   },
-  // async updateProduct({ commit }, product) {
+
+  // async updateProduct({ commit }: any, product:) {
   //   const response = await updateProduct(product);
   //   commit('updateProduct', response.data);
   // },
+
+  /* ------------------ Menus -------------- */
+  async fetchMenus({ commit }: any) {
+    const menus = await getMenus();
+    commit('setMenus', menus);
+    console.log(menus);
+  },
+
+  async deleteMenu({ commit }: any, id: any) {
+    await deleteMenu(id);
+    commit('deleteMenu', id);
+  },
+
+  /* ------------------ Orders -------------- */
+  async fetchOrders({ commit }: any) {
+    const orders = await getOrders();
+    console.log('Hello depuis action fetchOrder')
+    commit('setOrders', orders);
+    console.log(orders);
+  },
+
+  async deleteOrder({ commit }: any, id: any) {
+    await deleteOrder(id);
+    commit('deleteOrder', id);
+  },
+
+  async validateOrder({ commit }: any, id: any) {
+    const response = await validateOrder(id);
+    commit('updateOrder', response.data);
+  },
+
+  async refuseOrder({ commit }: any, id: any) {
+    const response = await refuseOrder(id);
+    commit('updateOrder', response.data);
+  },
 };
 
 const store = createStore({

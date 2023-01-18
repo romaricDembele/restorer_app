@@ -1,6 +1,6 @@
 <template>
 
-<v-row justify="left">
+<v-row justify="start">
       <v-dialog
         v-model="dialog"
         persistent
@@ -12,7 +12,7 @@
           >
             ADD ARTICLE
           </v-btn> -->
-          <AddButton v-if="mode === 'add'" v-bind="props"></AddButton>
+          <AddButton buttonText="Add Article" v-if="mode === 'add'" v-bind="props"></AddButton>
           <!-- <v-icon
             v-if="mode === 'update'"
             color="blue"

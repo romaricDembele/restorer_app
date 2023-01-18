@@ -8,7 +8,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi-svg';
 import { mdiAccount, mdiHomeCity, mdiAccountGroupOutline, 
   mdiMoped, mdiHistory, mdiChartBar, mdiFoodForkDrink, 
   mdiFoodTurkey, mdiOrderBoolAscendingVariant, mdiBellRing, 
-  mdiChevronLeft, mdiPlus, mdiDelete, mdiPencil } from '@mdi/js'; // import the additional icons here.
+  mdiChevronLeft, mdiPlus, mdiDelete, mdiPencil, mdiCheck, mdiClose } from '@mdi/js'; // import the additional icons here.
 
 const vuetify = createVuetify({
     components,
@@ -30,7 +30,9 @@ const vuetify = createVuetify({
             chevronLeft: mdiChevronLeft,
             add: mdiPlus,
             delete: mdiDelete,
-            update: mdiPencil
+            update: mdiPencil,
+            check: mdiCheck,
+            close: mdiClose
         },
         sets: {
           mdi,
