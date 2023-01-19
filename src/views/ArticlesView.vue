@@ -11,7 +11,6 @@
 import { defineComponent } from 'vue';
 
 import AddButton from '@/components/AddButton.vue';
-import CustomForm from '@/components/CustomForm.vue';
 import Form from '@/components/Form.vue';
 
 import Products from '@/components/Products.vue';
@@ -23,7 +22,7 @@ import store from '@/store';
 
 interface FormData {
     name:string,
-    quantity:number,
+    quantity?:number,
     price:number
 }
 
@@ -56,7 +55,6 @@ export default defineComponent({
     components: {
         Products,
         AddButton,
-        CustomForm,
         Form
     }
 });

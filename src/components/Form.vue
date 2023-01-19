@@ -1,6 +1,6 @@
 <template>
 
-<v-row justify="start">
+    <v-row justify="start">
       <v-dialog
         v-model="dialog"
         persistent

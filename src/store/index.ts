@@ -2,12 +2,15 @@ import { createStore } from 'vuex';
 import {Product, Article, Order} from '@/utils/interfaces';
 
 import { 
-  getArticles, getOrders, postArticle, getMenus,
+  getArticles, getOrders, getMenus,
+  postArticle, postMenu,
   deleteOrder, deleteMenu, 
   validateOrder, refuseOrder 
 } from '@/utils/helpers';
 
 import { deleteArticle as deleteProduct } from '@/utils/helpers';
+import { updateArticle as updateProduct } from '@/utils/helpers';
+
 
 
 interface State {
@@ -43,6 +46,10 @@ const mutations = {
   /* ------------------ Menus --------------- */
   setMenus(state: State, menus: Product[]) {
     state.menus = menus;
+  },
+
+  addMenu(state: State, menu: Product) {
+    state.products.push(menu);
   },
 
   deleteMenu(state: State, id: string) {
@@ -84,16 +91,24 @@ const actions = {
     commit('deleteProduct', id);
   },
 
-  // async updateProduct({ commit }: any, product:) {
-  //   const response = await updateProduct(product);
-  //   commit('updateProduct', response.data);
-  // },
+  async updateProduct({ commit }: any, product: Article) {
+    const response = await updateProduct(product);
+    // commit('updateProduct', response.data);
+    console.log(response);
+  },
 
   /* ------------------ Menus -------------- */
   async fetchMenus({ commit }: any) {
     const menus = await getMenus();
     commit('setMenus', menus);
     console.log(menus);
+  },
+
+  async createMenu({ commit }: any, menu: any) {
+    console.log(`From createMenu action: ${menu.name}`);
+    const response = await postMenu(menu);
+    console.log(response);
+    // commit('addMenu', response);
   },
 
   async deleteMenu({ commit }: any, id: any) {

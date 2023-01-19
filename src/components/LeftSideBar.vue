@@ -23,13 +23,13 @@
 
         <v-list density="compact" nav>
 
-            <RouterLink to='/' style="text-decoration: none; color: inherit;">
+            <!-- <RouterLink to='/' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$homeCity" title="Home" value="home"></v-list-item>
             </RouterLink>
 
             <RouterLink to='/account' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$account" title="My Account" value="account"></v-list-item>
-            </RouterLink>
+            </RouterLink> -->
 
             <RouterLink to='/articles' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$articles" title="Articles" value="article"></v-list-item>
@@ -55,9 +55,9 @@
                 <v-list-item prepend-icon="$statistics" title="Statistics" value="statistics"></v-list-item>
             </RouterLink> 
 
-            <RouterLink to='/notification-center' style="text-decoration: none; color: inherit;">
+            <!-- <RouterLink to='/notification-center' style="text-decoration: none; color: inherit;">
                 <v-list-item prepend-icon="$notifications" title="Notifications" value="notifications"></v-list-item>
-            </RouterLink>
+            </RouterLink> -->
         
         </v-list>
     </v-navigation-drawer>

@@ -4,28 +4,33 @@ export interface Product {
     quantity: number;
     type?: string;
     image_url: string,
-    _id: string;
+    _id: string
 };
 
 export interface Article {
     name: string,
     type: string,
     quantity: number,
-    price: number
+    price: number,
+    image_url?: string,
+    _id?: string
 };
 
 export interface Menu {
     name: string,
-    articles: Article[],
-    price: number
+    articles: [],
+    price: number,
+    image_url?: string,
+    _id?: string
 };
 
 export interface Restaurant {
     name: string,
     location: string,
     opening_time: number[][],
-    menus: Menu[],
-    image_url: string
+    menus: [],
+    image_url: string,
+    _id?: string;
 };
 
 export interface Order {

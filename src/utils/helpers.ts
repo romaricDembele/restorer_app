@@ -102,6 +102,28 @@ export const deleteArticle = async (id: any) => {
 };
 
 // Update article
+export const updateArticle = async (article: Article) => {
+    console.log(article.price);
+
+    try {
+        const response = await axios({
+            method: 'put',
+            url: `${API_RESTORER}/articles/${article._id}`,
+            data: {
+              name: article.name,
+              type: article.type,
+              quantity: article.quantity,
+              price: article.price,
+              image_url: article.image_url
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+
+};
 
 /* ------------------------------------- MENUS --------------------------------*/
 // Get menus
@@ -118,13 +140,14 @@ export const getMenus = async () => {
 };
 
 // Post menu
-const postMenu = async (name: string, articles: Article[], price: number) => {
+export const postMenu = async (menu: Menu) => {
     axios({
         method: 'post',
         url: `${API_RESTORER}/menus`,
         data: {
-          name,
-          articles,
+            name: menu.name,
+            articles: menu.articles,
+            price: menu.price
         }
     })
     .then( (response: any) => response.data)
@@ -134,6 +157,28 @@ const postMenu = async (name: string, articles: Article[], price: number) => {
 };
 
 // Update menu
+export const putMenu = async (menu: Menu) => {
+    console.log(menu.price);
+
+    try {
+        const response = await axios({
+            method: 'put',
+            url: `${API_RESTORER}/menus/${menu._id}`,
+            data: {
+              name: menu.name,
+              articles: menu.articles,
+              price: menu.price,
+              image_url: menu.image_url
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
 // Delete menu
 export const deleteMenu = async (id: any) => {
 
@@ -211,6 +256,20 @@ export const refuseOrder = async (id: string) => {
 
 };
 
+
+/////
+// Get restaurants
+export const getRestaurants = async () => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${API_RESTORER}/restaurants`,
+        });
+        return response.data;
+      } catch (error) {
+        console.error(error);
+    }
+};
 
 
 
