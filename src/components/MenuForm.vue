@@ -16,7 +16,7 @@
           ></v-checkbox>
         </template>
         <v-text-field label="Price" v-model="menu.price" type="number" required />
-        <v-file-input v-model="menu.image_url" label="Upload Image" @change="handleFileUpload"></v-file-input>
+        <!-- <v-file-input v-model="menu.image_url" label="Upload Image" @change="handleFileUpload"></v-file-input> -->
         <v-btn type="submit" color="primary">Create Menu</v-btn>
       </v-form>
     </v-card>
@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { Article, Menu } from '@/utils/interfaces';
+  import { Product, Article, Menu } from '@/utils/interfaces';
   import store from '@/store';
 
   export default defineComponent({
@@ -41,11 +41,7 @@
           price: 0,
           image_url: '',
         }),
-        articles: ref<Article[]>([
-        { name: "Article 1", type: "Type 1", quantity: 10, price: 15, _id: "1" },
-        { name: "Article 2", type: "Type 2", quantity: 5, price: 20, _id: "2" },
-        { name: "Article 3", type: "Type 3", quantity: 7, price: 25, _id: "3" },
-      ]),
+        articles: ref<Product[]>(store.state.products),
         selectedArticles: ref<Article[]>([])
       };
     },
@@ -55,27 +51,24 @@
       },
       createMenu() {
         // Use the selected articles, menu name, price and image to create a menu
-        console.log(this.menu);
-
-        console.log("this.selectedArticles[0]");
-        console.log(this.selectedArticles[0]);
-        //console.log(this.selectedArticles[1]);
-        
-        console.log("this.selectedArticles");
-        console.log(this.selectedArticles);
-        // const articles = []
-        for (let i in this.selectedArticles){
-          console.log('From loop');
-          console.log(i);
-        }
-
+        // console.log(this.menu);
         this.showDialog = false;
 
-        // store.dispatch('createMenu', {
-        //     name: this.selectedArticles.name,
-        //     articles: menu.articles,
-        //     price: this.selectedArticles.price
-        // });
+        let articles_ids: any = []
+        this.selectedArticles.forEach((element) => {
+          // console.log(element._id);
+          articles_ids.push(element._id)
+        });
+
+        console.log(articles_ids);
+        console.log(this.menu.name)
+        console.log(this.menu.price)
+        store.dispatch('createMenu', {
+            name: this.menu.name,
+            articles: articles_ids,
+            price: this.menu.price
+        });
+        this.$router.go(0);
       },
     },
   });
